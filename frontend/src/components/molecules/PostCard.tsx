@@ -1,30 +1,28 @@
 import React from "react";
 import { Post, Category } from "@/types";
 import { TagWithStar } from "@/components/atoms/TagWithStar";
+import dayjs from "dayjs";
 
 interface PostCardProps {
   post: Post;
   categories: Category[];
   onToggleFavorite: (category: Category) => void;
+  selectedCategory?: Category | null;
 }
 
 export const PostCard: React.FC<PostCardProps> = ({
   post,
   categories,
   onToggleFavorite,
+  selectedCategory,
 }) => {
   // Find the categories that this post belongs to
   const postCategories = categories.filter((category) =>
     post.categories.includes(category.id)
   );
 
-  // Format the date
-  const formattedDate = new Date(post.date).toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  // Format the date using dayjs
+  const formattedDate = dayjs(post.date).format("dddd, MMMM D YYYY");
 
   return (
     <div>
@@ -60,6 +58,7 @@ export const PostCard: React.FC<PostCardProps> = ({
             key={category.id}
             category={category}
             onToggleFavorite={onToggleFavorite}
+            isActive={selectedCategory?.id === category.id}
           />
         ))}
       </div>

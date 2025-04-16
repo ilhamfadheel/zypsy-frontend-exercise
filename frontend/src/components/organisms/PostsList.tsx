@@ -70,6 +70,7 @@ export const PostsList: React.FC<PostsListProps> = ({
                 post={post}
                 categories={categories}
                 onToggleFavorite={onToggleFavorite}
+                selectedCategory={selectedCategory}
               />
               {index < posts.length - 1 && <Divider className="my-4" />}
             </React.Fragment>
